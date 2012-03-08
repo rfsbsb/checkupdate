@@ -10,11 +10,15 @@ class Updater:
   def __init__(self, path = "./"):
     self.path = path
     self.paths = []
-    if (os.path.exists(path)):
-      for root, dirnames, filenames in os.walk(path):
-        for filename in fnmatch.filter(filenames, 'settings.php'):
-          droot, fname = os.path.split(os.path.split(root)[0])
-          self.paths.append(os.path.join(droot))
+    if (os.path.exists(path)):                                                                      
+      for root, dirnames, filenames in os.walk(path):                                               
+        for filename in fnmatch.filter(filenames, 'settings.php'):                                  
+          droot, fname = os.path.split(root)                                                        
+          if fname == "default":                                                                    
+            droot, fname = os.path.split(droot)                                                     
+            self.paths.append(droot)                                                                
+          else:                                                                                     
+            self.paths.append(os.path.join(droot, fname))
 
   def check(self):
     for path in self.paths:
