@@ -16,14 +16,17 @@ class Updater:
           droot, fname = os.path.split(root)                                                        
           if fname == "default":                                                                    
             droot, fname = os.path.split(droot)                                                     
-            self.paths.append(droot)                                                                
+            self.paths.append([droot, None])                                                        
           else:                                                                                     
-            self.paths.append(os.path.join(droot, fname))
-
-  def check(self):
-    for path in self.paths:
-      print "\033[1;33mDrupal site: "+ path+"\033[0m"
-      os.system("drush up -y -r "+path)
+            self.paths.append([os.path.join(droot, fname), fname])                                  
+                                                                                                    
+  def check(self):                                                                                  
+    for path in self.paths:                                                                         
+      print "\033[1;33mDrupal site: "+ path[0]+"\033[0m"                                            
+      if path[1]:                                                                                  
+        os.system("drush up -r "+path[0]+" -l "+path[1])                          
+      else:                                                                                         
+        os.system("drush up -r "+path[0]) 
       os.system("sleep 5")
       os.system("clear")
 
