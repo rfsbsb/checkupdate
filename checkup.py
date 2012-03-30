@@ -28,7 +28,6 @@ class Updater:
       # multisite update
       if path[1]:
         os.system("drush up -r "+path[0]+" -l "+path[1])
-        print "drush up -r "+path[0]+" -l "+path[1]
       # normal update
       else:
         os.system("drush up -r "+path[0])
