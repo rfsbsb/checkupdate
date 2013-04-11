@@ -21,6 +21,7 @@ class Updater:
           else:
             droot, fname = os.path.split(droot)
             self.paths.append([droot, fname])
+    self.paths = sorted(self.paths)
 
   def check(self):
     for path in self.paths:
@@ -33,7 +34,6 @@ class Updater:
         os.system("drush up -r "+path[0])
       os.system("sleep 5")
       os.system("clear")
-
 
 #main
 if __name__ == "__main__":
